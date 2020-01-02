@@ -101,7 +101,7 @@
                         <div class="hovereffect">
 
                             <div class="card" style="width: 100%;padding-left:20%;padding-right:20%;">
-                                <img style=" max-height: 15rem; min-width:20rem;" src="{{$userE->photo}}" class="my-4 card-img-top" alt="...">
+                                <img style=" max-height: 15rem; min-width:20rem;" src="{{asset('public/images/'.$userE->photo)}}" class="my-4 card-img-top" alt="...">
 
                             </div>
                             <div class="card-body">

@@ -125,15 +125,13 @@
         <a href="#" class="list-group-item list-group-item-action waves-effect">
           <i class="fa fa-pie-chart mr-3"></i>Resumen
         </a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
-          <i class="fa fa-user mr-3"></i>Profile</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
-          <i class="fa fa-table mr-3"></i>Tables</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
-          <i class="fa fa-map mr-3"></i>Maps</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
-          <i class="fa fa-money mr-3"></i>Orders</a>
-      </div>
+        <a href="/usuarios" class="list-group-item list-group-item-action waves-effect">
+          <i class="fa fa-user mr-3"></i>Usuarios</a>
+        <a href="/tipos" class="list-group-item list-group-item-action waves-effect">
+          <i class="fa fa-table mr-3"></i>Tipos de corte</a>
+        <a href="/ventas" class="list-group-item list-group-item-action waves-effect">
+          <i class="fa fa-map mr-3"></i>Ventas</a>
+
 
     </div>
     <!-- Sidebar -->

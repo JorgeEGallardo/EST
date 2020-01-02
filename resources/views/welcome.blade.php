@@ -108,7 +108,7 @@
                         <div class="hovereffect">
 
                             <div class="card" style="width: 100%;">
-                                <img style=" max-height: 15rem; min-width:20rem" src="{{$typeE->photo}}" class="card-img-top p-2" alt="...">
+                                <img style=" max-height: 15rem; min-width:20rem" src="{{asset('public/images/'.$typeE->photo)}}" class="card-img-top p-2" alt="...">
 
                             </div>
                             <div class="card-body z-depth-2">
