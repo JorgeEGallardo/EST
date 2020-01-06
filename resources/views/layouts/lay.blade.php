@@ -57,7 +57,7 @@
 
         <!-- Brand -->
         <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-          <strong class="purple-text">wea</strong>
+          <strong class="purple-text">D'ERIKA </strong>
         </a>
 
         <!-- Collapse -->
@@ -88,25 +88,7 @@
             </li>
           </ul>
 
-          <!-- Right -->
-          <ul class="navbar-nav nav-flex-icons">
-            <li class="nav-item">
-              <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
-                target="_blank">
-                <i class="fab fa-github mr-2"></i>MDB GitHub
-              </a>
-            </li>
-          </ul>
+
 
         </div>
 
@@ -117,12 +99,12 @@
     <!-- Sidebar -->
     <div class="sidebar-fixed position-fixed">
 
-      <a class="logo-wrapper waves-effect">
-        <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
+      <a class="pt-4 waves-effect">
+        <img src="{{asset('img/logo.png')}}" style="width:15rem" alt="">
       </a>
 
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
+        <a href="/resumen" class="list-group-item list-group-item-action waves-effect">
           <i class="fa fa-pie-chart mr-3"></i>Resumen
         </a>
         <a href="/usuarios" class="list-group-item list-group-item-action waves-effect">

@@ -42,11 +42,32 @@ class get extends Controller
         $end = date('Y-12-31', strtotime($ini . ' + 1 days'));
         $end = date('Y-m-d', strtotime($end . ' + 1 days'));
         $year = \DB::select("select coalesce(SUM(t.price), 0) as total from sales s join types t where s.type_id = t.id and s.created_at >= '$ini' and s.created_at< '$end'");
+        $date = date("Y-m-d");
+        $dayofweek = date('w', strtotime($date));
+        $in = date('Y-m-d', strtotime((1 - $dayofweek) . ' day', strtotime($date)));
+        $end = date('Y-m-d', strtotime((7 - $dayofweek) . ' day', strtotime($date)));
+        $week = \DB::select("select coalesce(SUM(t.price), 0) as total from sales s join types t where s.type_id = t.id and s.created_at >= '$ini' and s.created_at< '$end'");
+
 
         array_push($totals, $day[0]->total);
+        array_push($totals, $week[0]->total);
         array_push($totals, $month[0]->total);
         array_push($totals, $year[0]->total);
         return $totals;
+    }
+    public function getSalesByWeekPeriod()
+    {
+        $date = date("Y-m-d");
+        $counts = array();
+        $dayofweek = date('w', strtotime($date));
+        $ini = date('Y-m-d', strtotime((1 - $dayofweek) . ' day', strtotime($date)));
+        $end = date('Y-m-d', strtotime((7 - $dayofweek) . ' day', strtotime($date)));
+        $result = \DB::select("select coalesce(SUM(t.price), 0) as total from sales s join types t where s.type_id = t.id and s.created_at >= '$ini' and s.created_at< '$end'");
+
+         foreach ($result as $re) {
+            array_push($counts, $re->total);
+        }
+        return $counts;
     }
     public function getSalesByWorkerWeek()
     {
@@ -57,10 +78,10 @@ class get extends Controller
         $dayofweek = date('w', strtotime($date));
         $in = date('Y-m-d', strtotime((1 - $dayofweek) . ' day', strtotime($date)));
         $end = date('Y-m-d', strtotime((7 - $dayofweek) . ' day', strtotime($date)));
-        $result = \DB::select("select count(s.id) as count, w.name from sales s join workers w where s.created_at >'$in' and s.created_at < '$end' and w.id = s.worker_id GROUP BY w.name;");
+        $result = \DB::select("select count(s.id) as count, w.username from sales s join workers w where s.created_at >'$in' and s.created_at < '$end' and w.id = s.worker_id GROUP BY w.username;");
         foreach ($result as $re) {
             array_push($counts, $re->count);
-            array_push($workers, $re->name);
+            array_push($workers, $re->username);
         }
         array_push($data, $workers);
         array_push($data, $counts);
@@ -86,11 +107,23 @@ class get extends Controller
     }
     public function getSalesByType(){
         $ini = date('Y-01-01' , strtotime(date('Y-m-d') . ' - 30 days'));
-      $result =   \DB::select("select COUNT(t.id), t.name
+        $count = array();
+        $name = array();
+        $data = array();
+        $result =   \DB::select("select COUNT(t.id) as count, t.name
         from sales s
         join types t
         where s.type_id = t.id and s.created_at > '$ini' GROUP by t.name ");
-        return $result;
+
+        foreach ($result as $re) {
+            array_push($name, $re->name);
+            array_push($count, $re->count);
+        }
+        array_push($data, $name);
+        array_push($data, $count);
+        return $data;
+        //Devuelve una cadena de valores con nombres y la cantidad de cortes falta separarlos en dos arrays
+        //devolverlos y meterlos a variables para despues ponerlos en graficas
     }
     public function getPeakHour()
     {
@@ -104,7 +137,7 @@ class get extends Controller
         order by count(*)  desc
         limit 24');
         foreach ($result as $re) {
-            array_push($hours, $re->hr);
+            array_push($hours, $re->hr.":00");
             array_push($count, $re->count);
         }
         array_push($data, $hours);
@@ -133,16 +166,29 @@ class get extends Controller
     }
     public function getDashboard()
     {
-        $sales = get::getSalesByWeek();
-        $month = get::getSalesByMonth();
-        $worker = get::getSalesByWorkerWeek();
-        $peak = get::getPeakHour();
+        $sales = get::getSalesByWeek();//Ventas semanales
+        $month = get::getSalesByMonth();//Ventas mensuales
+        $worker = get::getSalesByWorkerWeek();//Ventas semanales por trabajador
+        $peak = get::getPeakHour();//Pico de ventas por hora
+        $periodicSale = get::getSalesByType();//Ventas por tipo en los últimos 30 días
         $salesworkers = $worker[0];
         $salescounts = $worker[1];
         $hours = $peak[0];
         $counts = $peak[1];
+        $periodName = $periodicSale[0];
+        $periodCount = $periodicSale[1];
         $totals = get::getTotals();
-        return view('dash')->with(compact('sales'))->with(compact('month'))->with(compact('salesworkers'))->with(compact('salescounts'))->with(compact('hours'))->with(compact('counts'))->with(compact('totals'));
+        $moneyByWeek =get::getSalesByWeekPeriod();
+        return view('dash')->with(compact('sales'))
+        ->with(compact('month'))
+        ->with(compact('salesworkers'))
+        ->with(compact('salescounts'))
+        ->with(compact('hours'))
+        ->with(compact('counts'))
+        ->with(compact('totals'))
+        ->with(compact('periodName'))
+        ->with(compact('moneyByWeek'))
+        ->with(compact('periodCount'));
     }
     public function getTypesC()
     {

@@ -25,7 +25,9 @@
             color: #636b6f;
             font-family: 'Nunito', sans-serif;
             font-weight: 200;
-            height: 100vh;
+            height:
+
+             100vh;
             margin: 0;
         }
 
@@ -93,28 +95,27 @@
         @endauth
     </div>
     @endif
-    <div class="title m-b-md ml-4">
-        Laravel
-    </div>
+    <a class="ml-4 pt-4 waves-effect">
+        <img src="{{asset('img/logo.png')}}" style="width:13rem" alt="">
+      </a>
     <div class=" full-height" STYLE="padding-left:2rem; padding-right:3rem">
 
         <div class="shadow-lg full-height" style="width:100%;">
-            <div class="row">
-
+            <div class="row wow fadeIn">
                 @foreach ($type as $typeE)
 
-                <div class="col-3" onclick="window.location.href ='estilista/{{$typeE->id}}'">
-                    <div style="width:90%; " class="content mx-2 my-4 z-depth-2">
+                <div class="col-md-3" onclick="window.location.href ='estilista/{{$typeE->id}}'">
+                    <div style="width:90%; " class="content my-4 z-depth-2">
                         <div class="hovereffect">
 
-                            <div class="card" style="width: 100%;">
-                                <img style=" max-height: 15rem; min-width:20rem" src="{{asset('public/images/'.$typeE->photo)}}" class="card-img-top p-2" alt="...">
+                            <div class="card" style="width: 100%; padding:10%">
+                                <img class="border border-secondary" style="margin-left:10%;height: 15rem; width:15rem" src="{{asset('public/images/'.$typeE->photo)}}">
 
                             </div>
                             <div class="card-body z-depth-2">
 
                                  <p class="card-text"><i class="fas fa-dollar-sign"></i> {{$typeE->price}}</p>
-                                 <button class="btn btn-elegant">{{$typeE->name}}</button>
+                                 <button class="btn btn-purple">{{$typeE->name}}</button>
                             </div>
                         </div>
                     </div>

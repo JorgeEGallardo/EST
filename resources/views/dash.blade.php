@@ -1,6 +1,28 @@
 @extends('layouts.lay')
 
 @section('content')
+<div class="card mb-4 wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
+
+    <!--Card content-->
+    <div class="card-body d-sm-flex justify-content-between">
+<div class="justify-content-between">
+      <h4 class="mb-2  mb-sm-0 pt-1">
+        <a href="/resumen" target="_blank">Administrador</a>
+      </h4>
+</div>
+    <div class="justify-content-right text-secondary">
+      <h6 class="mb-2 text-secondary mr-4 float-right mb-sm-0 pt-1">
+        <a href="/usuarios" class="text-secondary" target="_blank">Usuarios  </a>
+      </h6>
+      <h6 class="mb-2 text-secondary mr-4 float-right text-secondary  mb-sm-0 pt-1">
+        <a href="/tipos" class="text-secondary" target="_blank">Cortes  </a>
+      </h6>
+       <h6 class="mb-2 text-secondary mr-4 float-right text-secondary mb-sm-0 pt-1">
+        <a href="/ventas" class="text-secondary" target="_blank">Ventas  </a>
+      </h6>
+    </div>
+</div>
+  </div>
 <div class="row wow fadeIn">
 
     <!--Grid column-->
@@ -53,7 +75,7 @@
     <!--/.Card-->
 
   </div>
-  <div class="col-md-7" >
+  <div class="col-md-7 mt-4" >
     <!--Card-->
     <div class="card">
         <h4 class="text-center blue-text mt-4">Hora pico de ventas</h4>
@@ -92,12 +114,46 @@
 
   </div>
   <div class="mt-4" style="width:100%">
+    <nav class="navbar navbar-expand-lg navbar-dark stylish-color-dark">
+
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">Gráficas adicionales</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+          aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+          <!-- Links -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" onclick="graphs(0)">Ventas por tipo
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="graphs(1)">Dinero esta semana</a>
+            </li>
+
+
+          </ul>
+          <!-- Links -->
+
+
+        </div>
+        <!-- Collapsible content -->
+
+      </nav>
+      <!--/.Navbar-->
     <!--Card-->
     <div class="card">
         <h4 class="text-center blue-text mt-4">Ventas por tipo en los últimos 30 días</h4>
 
       <!--Card content-->
-      <div class="card-body">
+      <div class="card-body" id="canva">
 
         <canvas id="VentasTipo"></canvas>
 
@@ -113,6 +169,90 @@
 
 <script>
  // Line
+ graphs(0);
+ function graphs(xg){
+    document.getElementById("canva").innerHTML = "";
+    document.getElementById("canva").innerHTML ='<canvas id="VentasTipo"><canvas>';
+ var ctx = document.getElementById("VentasTipo").getContext('2d');
+  if (xg==0){
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($periodName, JSON_HEX_TAG) !!},
+                datasets: [{
+                    label: 'Ventas últimos 30 días',
+                    data: {!! json_encode($periodCount, JSON_HEX_TAG) !!},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+ }else if(xg==1){
+    var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels:["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"],
+                datasets: [{
+                    label: 'Ganancia por semana',
+                    data: {!! json_encode($moneyByWeek, JSON_HEX_TAG) !!},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+ }
+ }
+         // Line
  var ctx = document.getElementById("Semanales").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',

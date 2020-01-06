@@ -89,19 +89,19 @@
     </div>
     @endif
     <div class="title m-b-md ml-4">
-        Laravel
+        <img src="{{asset('img/logo.png')}}" style="width:13rem" alt="">
     </div>
     <div class=" full-height" STYLE="padding-left:2rem; padding-right:3rem">
 
         <div class="shadow-lg full-height" style="width:100%;">
-            <div class="row">
+            <div class="row wow fadeIn  d-flex justify-content-center">
                 @foreach ($worker as $userE)
-                <div class="col-6" onclick="window.location.href ='/doSale/{{$id}}/{{$userE->id}}'">
+                <div class="col-md-3" onclick="window.location.href ='/doSale/{{$id}}/{{$userE->id}}'">
                     <div style="width:90%; " class="content mx-2 my-4 shadow-lg">
                         <div class="hovereffect">
 
                             <div class="card" style="width: 100%;padding-left:20%;padding-right:20%;">
-                                <img style=" max-height: 15rem; min-width:20rem;" src="{{asset('public/images/'.$userE->photo)}}" class="my-4 card-img-top" alt="...">
+                                <img style="height: 15rem; width:15rem;" src="{{asset('public/images/'.$userE->photo)}}" class="my-4 card-img-top" alt="...">
 
                             </div>
                             <div class="card-body">

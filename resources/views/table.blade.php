@@ -1,6 +1,18 @@
 @extends('layouts.lay')
 
 @section('content')
+<div class="card mb-4 wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
+
+    <!--Card content-->
+    <div class="card-body d-sm-flex justify-content-between">
+
+      <h4 class="mb-2 mb-sm-0 pt-1">
+        <a href="/resumen" target="_blank">Administrador</a>
+        <span>/</span>
+        <span>Trabajadores</span>
+      </h4>
+    </div>
+  </div>
 <!--Tablas--->
 <table id="workers" class="table table-hover">
     <thead>
@@ -37,14 +49,14 @@
 <div style="width:80%; margin-left:10%">
     <!-- Material input name -->
     <div class="md-form form-sm">
-      <i class="fa fa-envelope prefix"></i>
+        <i class="fas fa-user prefix"></i>
       <input type="text" id="materialFormNameModalEx1" name="name" class="form-control form-control-sm" >
       <label for="materialFormNameModalEx1">Nombre completo </label>
     </div>
 
     <!-- Material input email -->
     <div class="md-form form-sm">
-      <i class="fa fa-lock prefix"></i>
+        <i class="fas fa-user-tag prefix"></i>
       <input type="text" id="materialFormEmailModalEx1" name ="username" class="form-control form-control-sm">
       <label for="materialFormEmailModalEx1">Nombre de usuario</label>
     </div>
